@@ -30,7 +30,10 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http
-				.authorizeRequests()
+				.csrf()
+					.disable()
+
+					.authorizeRequests()
 					.antMatchers("/", "/index.html", "/css/**", "/favicon")
 					.permitAll()
 
