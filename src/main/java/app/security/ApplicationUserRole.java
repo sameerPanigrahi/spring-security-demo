@@ -29,10 +29,22 @@ public enum ApplicationUserRole {
 	}
 
 	public Set<SimpleGrantedAuthority> getGrantedAuthorities() {
-		return permissions
+
+		// Add authorities for fine-grained control
+		Set<SimpleGrantedAuthority> grantedAuthorities = permissions
 				.stream()
 					.map(permission -> new SimpleGrantedAuthority(
 							permission.name()))
 					.collect(Collectors.toSet());
+
+		// Add roles as authorities for coarse-grained control.
+		String role = "ROLE_" + this.name(); // If added via authorities, Roles
+												// need to be added with prefix
+												// 'ROLE_'
+		grantedAuthorities.add(new SimpleGrantedAuthority(role));
+
+		// the final list of authorities has both authorities(permissions) and
+		// role
+		return grantedAuthorities;
 	}
 }
