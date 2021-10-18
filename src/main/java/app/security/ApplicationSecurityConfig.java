@@ -37,6 +37,20 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
 					.antMatchers(HttpMethod.GET, "/api/v1/students/**")
 					.hasRole(STUDENT.name())
 
+					.antMatchers(	HttpMethod.GET,
+									"/management/api/v1/students/**")
+					.hasAnyRole(ADMIN.name(), ADMINTRAINEE.name())
+
+					.antMatchers(	HttpMethod.POST,
+									"/management/api/v1/students/**")
+					.hasRole(ADMIN.name())
+					.antMatchers(	HttpMethod.PUT,
+									"/management/api/v1/students/**")
+					.hasRole(ADMIN.name())
+					.antMatchers(	HttpMethod.DELETE,
+									"/management/api/v1/students/**")
+					.hasRole(ADMIN.name())
+
 					.anyRequest()
 					.authenticated()
 					.and()
