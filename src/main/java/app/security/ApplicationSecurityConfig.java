@@ -7,6 +7,7 @@ import static app.security.ApplicationUserRole.STUDENT;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -32,6 +33,10 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
 				.authorizeRequests()
 					.antMatchers("/", "/index.html", "/css/**", "/favicon")
 					.permitAll()
+
+					.antMatchers(HttpMethod.GET, "/api/v1/students/**")
+					.hasRole(STUDENT.name())
+
 					.anyRequest()
 					.authenticated()
 					.and()
@@ -51,14 +56,14 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
 		UserDetails lindaUser = User
 				.builder()
 					.username("linda")
-					.password(passwordEncoder.encode("password123"))
+					.password(passwordEncoder.encode("adminpassword"))
 					.roles(ADMIN.name()) // ROLE_ADMIN
 					.build();
 
 		UserDetails tomUser = User
 				.builder()
 					.username("tom")
-					.password(passwordEncoder.encode("password123"))
+					.password(passwordEncoder.encode("adminpassword"))
 					.roles(ADMINTRAINEE.name()) // ROLE_ADMINTRAINEE
 					.build();
 
