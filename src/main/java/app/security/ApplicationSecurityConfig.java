@@ -40,7 +40,16 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
 					.anyRequest()
 					.authenticated()
 					.and()
-					.formLogin();
+					.formLogin()
+					.loginPage("/landingPage")
+					.permitAll()
+					.usernameParameter("user")
+					.passwordParameter("passphrase")
+					.defaultSuccessUrl("/index.html", true)
+					.and()
+					.rememberMe()
+					.key("someSuperPasswordFromVault")
+					.rememberMeParameter("remember-Me");
 	}
 
 	@Override
@@ -51,7 +60,8 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
 					.username("annasmith")
 					.password(passwordEncoder.encode("password"))
 					.authorities(STUDENT.getGrantedAuthorities())
-					// ROLE_STUDENT already added in ApplicationUserRole
+					// ROLE_STUDENT already added in
+					// ApplicationUserRole
 					// .roles(STUDENT.name())
 					.build();
 
@@ -60,7 +70,8 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
 					.username("linda")
 					.password(passwordEncoder.encode("adminpassword"))
 					.authorities(ADMIN.getGrantedAuthorities())
-					// ROLE_ADMIN already added in ApplicationUserRole
+					// ROLE_ADMIN already added in
+					// ApplicationUserRole
 					// .roles(ADMIN.name())
 					.build();
 
@@ -69,11 +80,12 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
 					.username("tom")
 					.password(passwordEncoder.encode("adminpassword"))
 					.authorities(ADMINTRAINEE.getGrantedAuthorities())
-					// ROLE_ADMINTRAINEE already added in ApplicationUserRole
+					// ROLE_ADMINTRAINEE already added in
+					// ApplicationUserRole
 					// .roles(ADMINTRAINEE.name())
 					.build();
 
-		return new InMemoryUserDetailsManager(annaSmithUser, lindaUser,
-				tomUser);
+		return new InMemoryUserDetailsManager(	annaSmithUser, lindaUser,
+												tomUser);
 	}
 }
