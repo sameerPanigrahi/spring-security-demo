@@ -37,31 +37,10 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
 					.authorizeRequests()
 					.antMatchers("/", "/index.html", "/css/**", "/favicon")
 					.permitAll()
-
-					// .antMatchers(HttpMethod.GET, "/api/v1/students/**")
-					// .hasRole(STUDENT.name())
-					//
-					// .antMatchers( HttpMethod.GET,
-					// "/management/api/v1/students/**")
-					// .hasAnyRole(ADMIN.name(), ADMINTRAINEE.name())
-					//
-					// .antMatchers( HttpMethod.POST,
-					// "/management/api/v1/students/**")
-					// .hasAuthority(ApplicationUserPermission.STUDENT_WRITE
-					// .name())
-					// .antMatchers( HttpMethod.PUT,
-					// "/management/api/v1/students/**")
-					// .hasAuthority(ApplicationUserPermission.STUDENT_WRITE
-					// .name())
-					// .antMatchers( HttpMethod.DELETE,
-					// "/management/api/v1/students/**")
-					// .hasAuthority(ApplicationUserPermission.STUDENT_WRITE
-					// .name())
-
 					.anyRequest()
 					.authenticated()
 					.and()
-					.httpBasic();
+					.formLogin();
 	}
 
 	@Override
