@@ -17,10 +17,9 @@ public class User implements UserDetails {
 	private final boolean isAccountNonLocked;
 	private final boolean isCredentialsNonExpired;
 	private final boolean isEnabled;
-	public User(String username, String password,
-			Set<? extends GrantedAuthority> grantedAuthorities,
-			boolean isAccountNonExpired, boolean isAccountNonLocked,
-			boolean isCredentialsNonExpired, boolean isEnabled) {
+	public User(String username, String password, Set<? extends GrantedAuthority> grantedAuthorities,
+			boolean isAccountNonExpired, boolean isAccountNonLocked, boolean isCredentialsNonExpired,
+			boolean isEnabled) {
 		super();
 		this.username = username;
 		this.password = password;
@@ -57,7 +56,6 @@ public class User implements UserDetails {
 	}
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		// TODO Auto-generated method stub
 		return grantedAuthorities;
 	}
 
